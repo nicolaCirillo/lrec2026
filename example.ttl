@@ -1,0 +1,61 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix ontolex: <http://www.w3.org/ns/lemon/ontolex#> .
+@prefix lexinfo: <http://www.lexinfo.net/ontology/3.0/lexinfo#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix frac: <http://www.w3.org/ns/lemon/frac#> .
+@prefix ex: <http://example.com/hlcl/> .
+@prefix tgn: <http://vocab.getty.edu/tgn/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ex:text_lanciaOrdinamenti a dct:Text ;
+        dct:bibliographicCitation "Stat. fior. [Lancia, Ordinamenti], 1356/1357" ;
+        dct:date "1356/1357"^^xsd:string .
+
+ex:form_arbitramento a ontolex:Form ;
+	ontolex:writtenRep "arbitramento"@it ;
+    lexinfo:gender lexinfo:masculine ;
+    lexinfo:number lexinfo:singular .
+
+ex:concept_arbitrato a ontolex:LexicalConcept ;
+    skos:definition "Sentenza dell’arbitro"@it ;
+    skos:related ex:concept_arbitro ;
+    skos:prefLabel "arbitrato"@it ;
+	ontolex:lexicalizedSense ex:sense_arbitramento ;
+	ontolex:lexicalizedSense ex:sense_sentenciaArbitraria .
+
+
+ex:concept_arbitro a ontolex:LexicalConcept ;
+    skos:prefLabel "arbitro (in una controversia giuridica)"@it ;
+    skos:related ex:concept_arbitrato .
+
+ex:entry_arbitramento a ontolex:LexicalEntry ;
+    lexinfo:partOfSpeech lexinfo:noun ;
+    ontolex:sense ex:sense_arbitramento ;
+	lexinfo:geographicalVariant ex:entry_sentenciaArbitraria ;
+    ontolex:canonicalForm ex:form_arbitramento ;
+    frac:attestation [
+		a frac:Attestation ;
+		rdf:value "arbitramento"@it ;
+		frac:observedIn ex:text_lanciaOrdinamenti
+	] .
+
+ex:entry_sentenciaArbitraria
+    ontolex:sense ex:sense_sentenciaArbitraria ;
+	lexinfo:geographicalVariant ex:entry_arbitramento .
+
+ex:sense_arbitramento a ontolex:LexicalSense ;
+    lexinfo:geographic tgn:7000457 ; #Florence
+    lexinfo:geographic tgn:7004264 . #Ferrara
+
+ex:sense_sentenciaArbitraria a ontolex:LexicalSense ;
+	lexinfo:geographic tgn:7010380 . #Apulia
+
+tgn:7000457 a skos:Concept ; 
+	skos:prefLabel "Firenze"@it .
+
+tgn:7004264 a skos:Concept ;
+	skos:prefLabel "Ferrara"@it .
+
+tgn:7010380 a skos:Concept ;
+	skos:prefLabel "Puglia"@it .
